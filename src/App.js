@@ -7,6 +7,9 @@ function App() {
         <a href="/">Shopping card</a>
         <a href="/admin">Admin</a>
       </header>
+      <main>
+        <div>Product List</div>
+      </main>
       <footer>All rights are reserved.</footer>
     </div>
   );

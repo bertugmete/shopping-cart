@@ -1,0 +1,42 @@
+html {
+  font-size: 62.5%;
+  box-sizing: border-box;
+}
+
+body, #root{
+  height: 100vh;
+  margin: 0;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  header {
+    background-color: #203040;
+    color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem;
+    a {
+      color: #ffffff;
+      text-decoration: none;
+    }
+  }
+  footer {
+    background-color: #203040;
+    color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  main {
+    flex: 1;
+  }
+}
