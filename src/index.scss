@@ -39,10 +39,16 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.5rem;
+    padding: 1.5rem;
     a {
       color: #ffffff;
       text-decoration: none;
+    }
+  }
+  main {
+    padding: 1.5rem;
+    .content {
+      display: flex;
     }
   }
   footer {
@@ -51,9 +57,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
-  main {
-    flex: 1;
   }
 }
 
