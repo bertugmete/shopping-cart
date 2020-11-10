@@ -1,0 +1,26 @@
+form {
+  border: 0.1rem solid #d3d3d3;
+  padding: 10px 20px 20px 20px;
+  .form__group {
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    label {
+      margin-bottom: 5px;
+    }
+
+    input,
+    textarea {
+      border: 0.1rem solid #d3d3d3;
+      padding: 8px;
+      font-size: 1.6rem;
+    }
+  }
+  .button {
+    &.button__proceed {
+      background-color: #2ea44f;
+      width: 100%;
+      color: #fff;
+    }
+  }
+}

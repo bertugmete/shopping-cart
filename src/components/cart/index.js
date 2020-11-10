@@ -37,22 +37,6 @@ export default class Cart extends Component {
     );
   };
 
-  renderTotalPrice = () => {
-    return (
-      <div className="total__cart">
-        <div className="total__price">
-          <span>Total:</span>
-          <span>
-            {formatCurrency(
-              this.props.cartList.reduce((a, c) => a + c.price * c.amount, 0)
-            )}
-          </span>
-        </div>
-        <button className="button button__proceed">Proceed</button>
-      </div>
-    );
-  };
-
   render() {
     let headerText =
       this.props.cartList.length > 0
@@ -67,7 +51,25 @@ export default class Cart extends Component {
         {this.props.cartList.length > 0 && (
           <React.Fragment>
             {this.renderCartList()}
-            {this.renderTotalPrice()}
+            <div className="total__cart">
+              <div className="total__price">
+                <span>Total:</span>
+                <span>
+                  {formatCurrency(
+                    this.props.cartList.reduce(
+                      (a, c) => a + c.price * c.amount,
+                      0
+                    )
+                  )}
+                </span>
+              </div>
+              <button
+                className="button button__proceed"
+                onClick={this.props.proceed}
+              >
+                Proceed
+              </button>
+            </div>
           </React.Fragment>
         )}
       </div>

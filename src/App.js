@@ -3,6 +3,7 @@ import Filter from "./components/filter";
 import Products from "./components/products";
 import Cart from "./components/cart";
 import data from "./data.json";
+import CheckoutForm from "./components/checkoutForm";
 
 class App extends React.Component {
   constructor(props) {
@@ -12,6 +13,7 @@ class App extends React.Component {
       size: "",
       sort: "",
       cartList: [],
+      isCheckoutFormVisible: false,
     };
   }
 
@@ -90,6 +92,16 @@ class App extends React.Component {
       cartList,
     });
   };
+
+  handleCheckout = (formInputs) => {
+    console.log(formInputs);
+  };
+
+  handleProceed = () => {
+    this.setState({
+      isCheckoutFormVisible: true,
+    });
+  };
   render() {
     return (
       <div className="container">
@@ -114,7 +126,13 @@ class App extends React.Component {
               <Cart
                 cartList={this.state.cartList}
                 removeFromCart={this.handleRemoveFromCart}
+                proceed={this.handleProceed}
               />
+              {this.state.isCheckoutFormVisible && (
+                <div className="checkout">
+                  <CheckoutForm checkout={this.handleCheckout} />
+                </div>
+              )}
             </div>
           </div>
         </main>
