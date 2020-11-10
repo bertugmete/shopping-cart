@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { formatCurrency } from "../../utils";
+import LightSpeed from "react-reveal/LightSpeed";
 import "./assets/style.scss";
 
 export default class Cart extends Component {
@@ -10,29 +11,31 @@ export default class Cart extends Component {
   renderCartList = () => {
     return (
       <div className="cart__list">
-        <ul>
-          {this.props.cartList.map((cartItem) => {
-            return (
-              <li>
-                <div className="product__info">
-                  <img src={cartItem.image} alt={cartItem.title} />
-                  <span>{cartItem.title}</span>
-                </div>
-                <div className="actions">
-                  <span>
-                    {formatCurrency(cartItem.price)} x {cartItem.amount}
-                  </span>
-                  <button
-                    className="button button__remove"
-                    onClick={() => this.handleRemove(cartItem._id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
+        <LightSpeed right cascade>
+          <ul>
+            {this.props.cartList.map((cartItem) => {
+              return (
+                <li>
+                  <div className="product__info">
+                    <img src={cartItem.image} alt={cartItem.title} />
+                    <span>{cartItem.title}</span>
+                  </div>
+                  <div className="actions">
+                    <span>
+                      {formatCurrency(cartItem.price)} x {cartItem.amount}
+                    </span>
+                    <button
+                      className="button button__remove"
+                      onClick={() => this.handleRemove(cartItem._id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+        </LightSpeed>
       </div>
     );
   };
