@@ -4,6 +4,7 @@ import Products from "./components/products";
 import Cart from "./components/cart";
 import data from "./data.json";
 import CheckoutForm from "./components/checkoutForm";
+import Bounce from "react-reveal/Bounce";
 
 class App extends React.Component {
   constructor(props) {
@@ -100,9 +101,21 @@ class App extends React.Component {
         cartList,
       },
       () => {
-        localStorage.setItem("cartList", JSON.stringify(cartList));
+        cartList.length < 1 && this.hideCheckoutForm();
       }
     );
+  };
+
+  hideCheckoutForm = () => {
+    this.setState({
+      isCheckoutFormVisible: false,
+    });
+  };
+
+  showCheckoutForm = () => {
+    this.setState({
+      isCheckoutFormVisible: true,
+    });
   };
 
   handleCheckout = (formInputs) => {
@@ -110,9 +123,7 @@ class App extends React.Component {
   };
 
   handleProceed = () => {
-    this.setState({
-      isCheckoutFormVisible: true,
-    });
+    this.showCheckoutForm();
   };
   render() {
     return (
@@ -140,11 +151,14 @@ class App extends React.Component {
                 removeFromCart={this.handleRemoveFromCart}
                 proceed={this.handleProceed}
               />
-              {this.state.isCheckoutFormVisible && (
-                <div className="checkout">
-                  <CheckoutForm checkout={this.handleCheckout} />
-                </div>
-              )}
+              {this.state.isCheckoutFormVisible &&
+                this.state.cartList.length > 0 && (
+                  <Bounce right>
+                    <div className="checkout">
+                      <CheckoutForm checkout={this.handleCheckout} />
+                    </div>
+                  </Bounce>
+                )}
             </div>
           </div>
         </main>
