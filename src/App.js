@@ -1,6 +1,7 @@
 import React from "react";
 import Filter from "./components/filter";
 import Products from "./components/products";
+import Cart from "./components/cart";
 import data from "./data.json";
 
 class App extends React.Component {
@@ -10,6 +11,7 @@ class App extends React.Component {
       products: data.products,
       size: "",
       sort: "",
+      cartList: [],
     };
   }
 
@@ -19,7 +21,6 @@ class App extends React.Component {
     let { products } = this.state;
 
     let orderedProducts = products.sort((a, b) => {
-      debugger;
       if (value === "lowest") {
         return a.price > b.price ? 1 : -1;
       } else if (value === "highest") {
@@ -50,6 +51,45 @@ class App extends React.Component {
       });
     }
   };
+
+  handleAddToCart = (_id) => {
+    let { cartList } = this.state;
+    let cartItem = cartList.find((cartItem) => cartItem._id === _id);
+
+    if (!cartItem) {
+      let willAddToCartList = data.products.find(
+        (product) => product._id === _id
+      );
+      cartList.push({ ...willAddToCartList, amount: 1 });
+    } else {
+      cartList = cartList.map((cartItem) => {
+        if (cartItem._id === _id) {
+          cartItem.amount++;
+        }
+        return cartItem;
+      });
+    }
+    this.setState({
+      cartList,
+    });
+  };
+
+  handleRemoveFromCart = (_id) => {
+    let { cartList } = this.state;
+
+    let cart = cartList.find((cartItem) => cartItem._id === _id);
+
+    let cartIndex = cartList.indexOf(cart);
+    if (cart.amount === 1) {
+      cartList.splice(cartIndex, 1);
+    } else {
+      cartList[cartIndex] = { ...cart, amount: cart.amount - 1 };
+    }
+
+    this.setState({
+      cartList,
+    });
+  };
   render() {
     return (
       <div className="container">
@@ -65,9 +105,17 @@ class App extends React.Component {
                 filter={this.handleFilter}
                 length={this.state.products.length}
               />
-              <Products products={this.state.products} />
+              <Products
+                products={this.state.products}
+                addToCart={this.handleAddToCart}
+              />
             </div>
-            <div>Cart</div>
+            <div className="cart__container">
+              <Cart
+                cartList={this.state.cartList}
+                removeFromCart={this.handleRemoveFromCart}
+              />
+            </div>
           </div>
         </main>
         <footer>All rights are reserved.</footer>

@@ -3,7 +3,11 @@ import { formatCurrency } from "../../utils";
 import "./assests/style.scss";
 
 export default class Products extends Component {
-  render() {
+  handleOnClick = (id) => {
+    this.props.addToCart(id);
+  };
+
+  renderProducts = () => {
     return (
       <div>
         <ul className="products">
@@ -19,7 +23,10 @@ export default class Products extends Component {
                     <div>
                       <span>{formatCurrency(product.price)}</span>
                     </div>
-                    <button className="button button__basket">
+                    <button
+                      className="button button__basket"
+                      onClick={() => this.handleOnClick(product._id)}
+                    >
                       Add To Cart
                     </button>
                   </div>
@@ -30,5 +37,8 @@ export default class Products extends Component {
         </ul>
       </div>
     );
+  };
+  render() {
+    return this.props.products.length > 0 && this.renderProducts();
   }
 }
