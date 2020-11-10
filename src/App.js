@@ -12,7 +12,9 @@ class App extends React.Component {
       products: data.products,
       size: "",
       sort: "",
-      cartList: [],
+      cartList: localStorage.getItem("cartList")
+        ? JSON.parse(localStorage.getItem("cartList"))
+        : [],
       isCheckoutFormVisible: false,
     };
   }
@@ -71,9 +73,14 @@ class App extends React.Component {
         return cartItem;
       });
     }
-    this.setState({
-      cartList,
-    });
+    this.setState(
+      {
+        cartList,
+      },
+      () => {
+        localStorage.setItem("cartList", JSON.stringify(cartList));
+      }
+    );
   };
 
   handleRemoveFromCart = (_id) => {
@@ -88,9 +95,14 @@ class App extends React.Component {
       cartList[cartIndex] = { ...cart, amount: cart.amount - 1 };
     }
 
-    this.setState({
-      cartList,
-    });
+    this.setState(
+      {
+        cartList,
+      },
+      () => {
+        localStorage.setItem("cartList", JSON.stringify(cartList));
+      }
+    );
   };
 
   handleCheckout = (formInputs) => {
