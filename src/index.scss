@@ -55,6 +55,9 @@ body {
     .cart__container {
       flex: 1;
       margin-left: 20px;
+      .checkout {
+        margin-top: 50px;
+      }
     }
   }
   footer {
