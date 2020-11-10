@@ -77,32 +77,6 @@ export default class Products extends Component {
     );
   };
 
-  // renderModal = () => {
-  //   let { product } = this.state;
-  //   return (
-  //     <Modal
-  //       isOpen={this.state.isModalOpen}
-  //       onRequestClose={this.handleCloseModal}
-  //     >
-  //       <div className="selected__product">
-  //         <button className="close__modal" onClick={this.handleCloseModal}>
-  //           X
-  //         </button>
-  //         <img src={product.image} alt={product.title} />
-  //         <div className="information">
-  //           <h2>{product.title}</h2>
-  //           <span>{formatCurrency(product.price)}</span>
-  //           <button
-  //             className="button button__basket"
-  //             onClick={() => this.handleOnClick(product._id)}
-  //           >
-  //             Add To Cart
-  //           </button>
-  //         </div>
-  //       </div>
-  //     </Modal>
-  //   );
-  // };
   render() {
     let { selectedProduct, isModalOpen } = this.state;
     return (
