@@ -15,7 +15,7 @@ export default class Cart extends Component {
           <ul>
             {this.props.cartList.map((cartItem) => {
               return (
-                <li>
+                <li key={cartItem._id}>
                   <div className="product__info">
                     <img src={cartItem.image} alt={cartItem.title} />
                     <span>{cartItem.title}</span>

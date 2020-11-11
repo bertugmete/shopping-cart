@@ -5,6 +5,8 @@ import Cart from "./components/cart";
 import data from "./data.json";
 import CheckoutForm from "./components/checkoutForm";
 import Bounce from "react-reveal/Bounce";
+import store from "./store";
+import { Provider } from "react-redux";
 
 class App extends React.Component {
   constructor(props) {
@@ -61,6 +63,8 @@ class App extends React.Component {
     let { cartList } = this.state;
     let cartItem = cartList.find((cartItem) => cartItem._id === _id);
 
+    debugger;
+
     if (!cartItem) {
       let willAddToCartList = data.products.find(
         (product) => product._id === _id
@@ -86,7 +90,7 @@ class App extends React.Component {
 
   handleRemoveFromCart = (_id) => {
     let { cartList } = this.state;
-
+    debugger;
     let cart = cartList.find((cartItem) => cartItem._id === _id);
 
     let cartIndex = cartList.indexOf(cart);
@@ -127,43 +131,42 @@ class App extends React.Component {
   };
   render() {
     return (
-      <div className="container">
-        <header>
-          <a href="/">Shopping card</a>
-          <a href="/admin">Admin</a>
-        </header>
-        <main>
-          <div className="content">
-            <div className="main">
-              <Filter
-                order={this.handleOrder}
-                filter={this.handleFilter}
-                length={this.state.products.length}
-              />
-              <Products
-                products={this.state.products}
-                addToCart={this.handleAddToCart}
-              />
+      <Provider store={store}>
+        <div className="container">
+          <header>
+            <a href="/">Shopping card</a>
+            <a href="/admin">Admin</a>
+          </header>
+          <main>
+            <div className="content">
+              <div className="main">
+                <Filter
+                  order={this.handleOrder}
+                  filter={this.handleFilter}
+                  length={this.state.products.length}
+                />
+                <Products addToCart={this.handleAddToCart} />
+              </div>
+              <div className="cart__container">
+                <Cart
+                  cartList={this.state.cartList}
+                  removeFromCart={this.handleRemoveFromCart}
+                  proceed={this.handleProceed}
+                />
+                {this.state.isCheckoutFormVisible &&
+                  this.state.cartList.length > 0 && (
+                    <Bounce right>
+                      <div className="checkout">
+                        <CheckoutForm checkout={this.handleCheckout} />
+                      </div>
+                    </Bounce>
+                  )}
+              </div>
             </div>
-            <div className="cart__container">
-              <Cart
-                cartList={this.state.cartList}
-                removeFromCart={this.handleRemoveFromCart}
-                proceed={this.handleProceed}
-              />
-              {this.state.isCheckoutFormVisible &&
-                this.state.cartList.length > 0 && (
-                  <Bounce right>
-                    <div className="checkout">
-                      <CheckoutForm checkout={this.handleCheckout} />
-                    </div>
-                  </Bounce>
-                )}
-            </div>
-          </div>
-        </main>
-        <footer>All rights are reserved.</footer>
-      </div>
+          </main>
+          <footer>All rights are reserved.</footer>
+        </div>
+      </Provider>
     );
   }
 }

@@ -3,8 +3,10 @@ import { formatCurrency } from "../../utils";
 import Slide from "react-reveal/Slide";
 import "./assests/style.scss";
 import CustomModal from "../modal";
+import { connect } from "react-redux";
+import { fetchProducts } from "../../actions/productActions";
 
-export default class Products extends Component {
+class Products extends Component {
   constructor(props) {
     super(props);
 
@@ -13,6 +15,11 @@ export default class Products extends Component {
       selectedProduct: null,
     };
   }
+
+  componentDidMount() {
+    this.props.fetchProducts();
+  }
+
   handleOnClick = (id) => {
     this.props.addToCart(id);
   };
@@ -44,34 +51,38 @@ export default class Products extends Component {
     return (
       <React.Fragment>
         <Slide right>
-          <ul className="products">
-            {this.props.products.map((product) => {
-              return (
-                <li key={product._id}>
-                  <div className="product">
-                    <a
-                      href={`#${product._id}`}
-                      onClick={() => this.handleSelectedProduct(product)}
-                    >
-                      <img src={product.image} alt={product.title} />
-                      <p>{product.title}</p>
-                    </a>
-                    <div className="price">
-                      <div>
-                        <span>{formatCurrency(product.price)}</span>
-                      </div>
-                      <button
-                        className="button button__basket"
-                        onClick={() => this.handleOnClick(product._id)}
+          {!this.props.products ? (
+            <div>Loading...</div>
+          ) : (
+            <ul className="products">
+              {this.props.products.map((product) => {
+                return (
+                  <li key={product._id}>
+                    <div className="product">
+                      <a
+                        href={`#${product._id}`}
+                        onClick={() => this.handleSelectedProduct(product)}
                       >
-                        Add To Cart
-                      </button>
+                        <img src={product.image} alt={product.title} />
+                        <p>{product.title}</p>
+                      </a>
+                      <div className="price">
+                        <div>
+                          <span>{formatCurrency(product.price)}</span>
+                        </div>
+                        <button
+                          className="button button__basket"
+                          onClick={() => this.handleOnClick(product._id)}
+                        >
+                          Add To Cart
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          )}
         </Slide>
       </React.Fragment>
     );
@@ -81,7 +92,9 @@ export default class Products extends Component {
     let { selectedProduct, isModalOpen } = this.state;
     return (
       <div className="product__container">
-        {this.props.products.length > 0 && this.renderProducts()}
+        {this.props.products &&
+          this.props.products.length > 0 &&
+          this.renderProducts()}
         {this.state.isModalOpen && selectedProduct && (
           <CustomModal isOpen={isModalOpen} close={this.handleCloseModal}>
             <div className="selected__product">
@@ -107,3 +120,7 @@ export default class Products extends Component {
     );
   }
 }
+
+export default connect((state) => ({ products: state.products.items }), {
+  fetchProducts,
+})(Products);
