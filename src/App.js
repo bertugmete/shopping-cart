@@ -22,48 +22,9 @@ class App extends React.Component {
     };
   }
 
-  handleOrder = (event) => {
-    let { value } = event.target;
-
-    let { products } = this.state;
-
-    let orderedProducts = products.sort((a, b) => {
-      if (value === "lowest") {
-        return a.price > b.price ? 1 : -1;
-      } else if (value === "highest") {
-        return a.price < b.price ? 1 : -1;
-      } else {
-        return a._id < b._id ? 1 : -1;
-      }
-    });
-
-    this.setState({
-      product: orderedProducts,
-    });
-  };
-
-  handleFilter = (event) => {
-    let { value } = event.target;
-    if (value === "all") {
-      this.setState({
-        products: data.products,
-      });
-    } else {
-      let filteredProducts = data.products.filter((product) => {
-        return product.availableSizes.indexOf(value) >= 0;
-      });
-
-      this.setState({
-        products: filteredProducts,
-      });
-    }
-  };
-
   handleAddToCart = (_id) => {
     let { cartList } = this.state;
     let cartItem = cartList.find((cartItem) => cartItem._id === _id);
-
-    debugger;
 
     if (!cartItem) {
       let willAddToCartList = data.products.find(
@@ -140,11 +101,7 @@ class App extends React.Component {
           <main>
             <div className="content">
               <div className="main">
-                <Filter
-                  order={this.handleOrder}
-                  filter={this.handleFilter}
-                  length={this.state.products.length}
-                />
+                <Filter />
                 <Products addToCart={this.handleAddToCart} />
               </div>
               <div className="cart__container">
