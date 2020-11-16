@@ -5,6 +5,7 @@ import "./assests/style.scss";
 import CustomModal from "../modal";
 import { connect } from "react-redux";
 import { fetchProducts } from "../../actions/productActions";
+import { addToCart } from "../../actions/cartActions";
 
 class Products extends Component {
   constructor(props) {
@@ -72,7 +73,7 @@ class Products extends Component {
                         </div>
                         <button
                           className="button button__basket"
-                          onClick={() => this.handleOnClick(product._id)}
+                          onClick={() => this.props.addToCart(product._id)}
                         >
                           Add To Cart
                         </button>
@@ -106,7 +107,7 @@ class Products extends Component {
                 <button
                   className="button button__basket"
                   onClick={() => {
-                    this.handleOnClick(selectedProduct._id);
+                    this.props.addToCart(selectedProduct._id);
                     this.handleCloseModal();
                   }}
                 >
@@ -125,5 +126,6 @@ export default connect(
   (state) => ({ products: state.products.filteredItems }),
   {
     fetchProducts,
+    addToCart,
   }
 )(Products);

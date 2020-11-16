@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import { formatCurrency } from "../../utils";
 import LightSpeed from "react-reveal/LightSpeed";
 import "./assets/style.scss";
+import { connect } from "react-redux";
+import { removeFromCart } from "../../actions/cartActions";
 
-export default class Cart extends Component {
-  handleRemove = (_id) => {
-    this.props.removeFromCart(_id);
-  };
-
+class Cart extends Component {
   renderCartList = () => {
     return (
       <div className="cart__list">
@@ -26,7 +24,7 @@ export default class Cart extends Component {
                     </span>
                     <button
                       className="button button__remove"
-                      onClick={() => this.handleRemove(cartItem._id)}
+                      onClick={() => this.props.removeFromCart(cartItem._id)}
                     >
                       Remove
                     </button>
@@ -79,3 +77,12 @@ export default class Cart extends Component {
     );
   }
 }
+
+export default connect(
+  (state) => ({
+    cartList: state.cart.cartItems,
+  }),
+  {
+    removeFromCart,
+  }
+)(Cart);
