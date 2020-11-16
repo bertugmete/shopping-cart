@@ -4,6 +4,7 @@ import LightSpeed from "react-reveal/LightSpeed";
 import "./assets/style.scss";
 import { connect } from "react-redux";
 import { removeFromCart } from "../../actions/cartActions";
+import { createOrder } from "../../actions/orderActions";
 
 class Cart extends Component {
   renderCartList = () => {
@@ -44,6 +45,7 @@ class Cart extends Component {
         ? `You have ${this.props.cartList.reduce((a, c) => a + c.amount, 0)} in
       the cart`
         : "Add prodcut to your cart";
+    debugger;
     return (
       <div className="cart">
         <div className="cart__header">
@@ -84,5 +86,6 @@ export default connect(
   }),
   {
     removeFromCart,
+    createOrder,
   }
 )(Cart);

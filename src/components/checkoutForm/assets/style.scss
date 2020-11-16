@@ -24,3 +24,21 @@ form {
     }
   }
 }
+
+.order__info {
+  display: flex;
+  flex-direction: column;
+  .success__message {
+    color: #2ea44f;
+  }
+  ul li {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px 0;
+    div {
+      &:first-child {
+        font-weight: 500;
+      }
+    }
+  }
+}
