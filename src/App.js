@@ -51,7 +51,6 @@ class App extends React.Component {
 
   handleRemoveFromCart = (_id) => {
     let { cartList } = this.state;
-    debugger;
     let cart = cartList.find((cartItem) => cartItem._id === _id);
 
     let cartIndex = cartList.indexOf(cart);
@@ -105,11 +104,7 @@ class App extends React.Component {
                 <Products addToCart={this.handleAddToCart} />
               </div>
               <div className="cart__container">
-                <Cart
-                  cartList={this.state.cartList}
-                  removeFromCart={this.handleRemoveFromCart}
-                  proceed={this.handleProceed}
-                />
+                <Cart proceed={this.handleProceed} />
                 {this.state.isCheckoutFormVisible &&
                   this.state.cartList.length > 0 && (
                     <Bounce right>
