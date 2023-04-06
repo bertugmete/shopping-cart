@@ -1,0 +1,557 @@
+[
+  {
+    "code": "2067",
+    "errorInformation": "ERROR_CANNOT_TRANSFORM_SIGNED_XML_DOCUMENT",
+    "text": "XadES İmzada alınır. Xades İmzada hatalı xml varsa, enveloped formatına uygun değilse alınır."
+  },
+  {
+    "code": "2068",
+    "errorInformation": "ERROR_CANNOT_CLOSE_SMART_CARD_SESSION",
+    "text": "SmartCardDevice kullanılırken OpenSession yapılmadıysa CloseSession yapıldığında bu hata alınıyor."
+  },
+  {
+    "code": "2069",
+    "errorInformation": "ERROR_CANNOT_ADD_TRANSFORMS_TO_ENVELOPED_XML_SIGNATURE",
+    "text": "XadES İmzada alınır. Xades İmzada hatalı xml varsa alınır"
+  },
+  {
+    "code": "2072",
+    "errorInformation": "ERROR_BAD_XML_FORMAT",
+    "text": "Xml hatalı ise yapılıyor"
+  },
+  {
+    "code": "2073",
+    "errorInformation": "ERROR_CANNOT_CANONICALIZE_XML_ELEMENT",
+    "text": "Xml Canonicalization yapılamıyorsa alınıyor. (xml düzeltilmelidir)"
+  },
+  {
+    "code": "2074",
+    "errorInformation": "ERROR_CANNOT_CALCULATE_DIGEST",
+    "text": "Özet hesaplanamıyor"
+  },
+  {
+    "code": "2075",
+    "errorInformation": "ERROR_INVALID_XPATH_EXPRESSION",
+    "text": "NodeToSignXPath parametresi hatalıysa alınır"
+  },
+  {
+    "code": "2076",
+    "errorInformation": "ERROR_CANNOT_RETRIEVE_LIST_OF_CERTIFICATES",
+    "text": "sertifika listesi alınamıyorsa bu hata alınır. SmartCardDevice"
+  },
+  {
+    "code": "2077",
+    "errorInformation": "ERROR_INVALID_CERTIFICATE_FORMAT",
+    "text": "Sertifika formatı hatası"
+  },
+  {
+    "code": "2078",
+    "errorInformation": "ERROR_DECRYPT_DATA",
+    "text": "AES 256 şifre çözme hatası"
+  },
+  {
+    "code": "2079",
+    "errorInformation": "ERROR_ENCRYPT_DATA",
+    "text": "AES 256 şifreleme hatası"
+  },
+  {
+    "code": "2080",
+    "errorInformation": "ERROR_CANNOT_BUILD_ASN1_FOR_DIGEST_TO_BE_SIGNED",
+    "text": "özet veriden Asn1 oluşturulamaması"
+  },
+  {
+    "code": "2081",
+    "errorInformation": "ERROR_CANNOT_CONNECT_TO_TIMESTAMP_SERVER",
+    "text": "Zaman damgası sunucularına erişemediği zaman alınır. Network."
+  },
+  {
+    "code": "2082",
+    "errorInformation": "ERROR_CANNOT_BUILD_ASN1_STRUCTURE",
+    "text": "ASN1 hatası"
+  },
+  {
+    "code": "2083",
+    "errorInformation": "ERROR_FIND_ISSUER_CERTIFICATE",
+    "text": "alt kök ya da kök sertifikayı truststore içerisinde bulamadığında bu hata alınmaktadır "
+  },
+  {
+    "code": "2084",
+    "errorInformation": "ERROR_PERFORM_OCSP_REQUEST",
+    "text": "OCSP sunucularına request atamadığı zaman alınır"
+  },
+  {
+    "code": "2085",
+    "errorInformation": "ERROR_CANNOT_ENCODE_CADES_AV2",
+    "text": "Arşiv imza atılamama hatası"
+  },
+  {
+    "code": "2086",
+    "errorInformation": "ERROR_CANNOT_BUILD_CADES_CERTIFICATE_VALUES",
+    "text": "Cades imza hatası"
+  },
+  {
+    "code": "2087",
+    "errorInformation": "ERROR_CERTIFICATE_REVOKED_IN_OCSP",
+    "text": "OCSP sonucunda sertifikanın iptal edildiği durumda oluşmaktadır"
+  },
+  {
+    "code": "2089",
+    "errorInformation": "ERROR_CERTIFICATE_REVOKED_IN_CRL",
+    "text": "CRL sonucunda sertifikanın iptal edildiği anlaşılır"
+  },
+  {
+    "code": "2088",
+    "errorInformation": "ERROR_CERTIFICATE_EXPIRED",
+    "text": "Sertifikanın süresi dolmuştur"
+  },
+  {
+    "code": "2065",
+    "errorInformation": "ERROR_CANNOT_XML_DOCUMENT_BUILDER",
+    "text": "Hatalı xml"
+  },
+  {
+    "code": "2064",
+    "errorInformation": "ERROR_CANNOT_PROCESS_XML_DATA",
+    "text": "Hatalı xml"
+  },
+  {
+    "code": "2063",
+    "errorInformation": "ERROR_CANNOT_INITIALIZE_SIGNER_CONTEXT",
+    "text": "ArkSigner konfigürasyonları hatalı yapıldığı durumda alınır"
+  },
+  {
+    "code": "2062",
+    "errorInformation": "ERROR_PROVIDED_XML_DATA_IS_MALFORMED",
+    "text": "Hatalı xml"
+  },
+  {
+    "code": "2019",
+    "errorInformation": "ERROR_SIGNATURE_DATA_CANNOT_BE_EMPTY",
+    "text": "İmza verisi boş gönderildiğinde alınmaktadır"
+  },
+  {
+    "code": "2022",
+    "errorInformation": "ERROR_NO_SIGNER_INFO_ON_SIGNATURE",
+    "text": "İmzalı veri içerisinde imzacı bilgisi bulunmamaktadır."
+  },
+  {
+    "code": "2023",
+    "errorInformation": "ERROR_CANNOT_LIST_SLOTS_ON_SIGNING_DEVICE",
+    "text": "pkcs11 dll'i hatalı ise alınabilir, cihazın sorunlu olması durumunda alınabilir."
+  },
+  {
+    "code": "2024",
+    "errorInformation": "ERROR_INVALID_CAdES_SIGNATURE_FORMAT",
+    "text": "Hatalı cms formatı"
+  },
+  {
+    "code": "2025",
+    "errorInformation": "ERROR_CANNOT_INITIALIZE_CADES_SIGNATURE_GENERATION",
+    "text": "İnitialize'da bir parametrenin hatalı olması durumunda olur."
+  },
+  {
+    "code": "2026",
+    "errorInformation": "ERROR_CANNOT_FINALIZE_CADES_SIGNATURE_GENERATION",
+    "text": "Initialize'da bir hata oluştuysa ya da finalize aşamasında bir parametre hatalıysa alınır"
+  },
+  {
+    "code": "2031",
+    "errorInformation": "ERROR_CANNOT_VALIDATE_CERTIFICATE",
+    "text": "Sertifika doğrulanamadığı zaman alınır"
+  },
+  {
+    "code": "2032",
+    "errorInformation": "ERROR_CANNOT_PERFORM_CRL_REQUEST",
+    "text": "Crl requesti atamıyorum"
+  },
+  {
+    "code": "2033",
+    "errorInformation": "ERROR_CANNOT_PARSE_CRL_RESPONSE",
+    "text": "Crl responseu beklenen formatta değil"
+  },
+  {
+    "code": "2090",
+    "errorInformation": "ERROR_CERTIFICATE_NOT_TRUSTED",
+    "text": "Sertifikanın kök ve alt kök sertifikaları güvenilir değil"
+  },
+  {
+    "code": "2034",
+    "errorInformation": "ERROR_CRL_VALIDITY_EXPIRED",
+    "text": "Crl responsunun geçerlilik süresi dolduysa bu hata alınır"
+  },
+  {
+    "code": "2053",
+    "errorInformation": "ERROR_CANNOT_GENERATE_DIGEST",
+    "text": "Özet hesaplanamadığı zaman alınmaktadır."
+  },
+  {
+    "code": "2056",
+    "errorInformation": "ERROR_SIGNATURE_DATA_CANNOT_BE_NULL",
+    "text": "İmza verisi null olamaz."
+  },
+  {
+    "code": "2057",
+    "errorInformation": "ERROR_UNDEFINED_DIGEST_ALGORITHM",
+    "text": "Geçersiz özet algoritması"
+  },
+  {
+    "code": "2058",
+    "errorInformation": "ERROR_CANNOT_UPGRADE_SIGNATURE",
+    "text": "bes-est, est-xl işlemlerini yapamadığı zaman alınır. (Upgrade metodu)"
+  },
+  {
+    "code": "2059",
+    "errorInformation": "ERROR_INVALID_TIMESTAMP_SERVER_CREDENTIALS",
+    "text": "Zaman damgası bilgileri hatalı"
+  },
+  {
+    "code": "2060",
+    "errorInformation": "ERROR_UNDEFINED_SIGNATURE_TYPE",
+    "text": "İmza tipi geçersiz (CAdES, XAdES, PAdES dışında bir veri gönderildiğinde alınır)"
+  },
+  {
+    "code": "2035",
+    "errorInformation": "ERROR_CRL_SIGNATURE_INVALID",
+    "text": "Crl response'u üzerindeki imza geçersiz"
+  },
+  {
+    "code": "2018",
+    "errorInformation": "ERROR_NOT_A_SIGNED_DATA",
+    "text": "doğrulama sırasında imzalı veri gelmezse alınmaktadır"
+  },
+  {
+    "code": "2091",
+    "errorInformation": "ERROR_CERTIFICATE_PATH_VALIDATION",
+    "text": "ArkSigner klasörünün path bilgisi hatalı verilirse alınıyor"
+  },
+  {
+    "code": "2093",
+    "errorInformation": "ERROR_TIMESTAMP_CERTIFICATE_SIGNATURE_INVALID",
+    "text": "Zaman damgası için kullanılan sertifikanın üzerindeki signature geçersiz"
+  },
+  {
+    "code": "2145",
+    "errorInformation": "ERROR_NON_REPUDIATION_KEY_USAGE_ATTRIBUTE_IN_CERTIFICATE",
+    "text": "İnkar edilememezlik için gerekli olan key yoksa alınır. (Mali mühürle imza atılmak istenirse)"
+  },
+  {
+    "code": "2146",
+    "errorInformation": "ERROR_NO_POLICY_NOTIFICATION_TEXT_IN_CERTIFICATE",
+    "text": "5070 sayılı …. İle başlayan bir metin vardır, bu metin sertifikada yoksa alınır."
+  },
+  {
+    "code": "2147",
+    "errorInformation": "ERROR_NO_QC_STATEMENTS_EXTENSION_IN_CERTIFICATE",
+    "text": "Sertifika üzerinde QC statement değeri olmadığı durumda alınır"
+  },
+  {
+    "code": "2148",
+    "errorInformation": "ERROR_QC_STATEMENTS_EXTENSION_DOES_NOT_HAVE_ETSI_IN_CERTIFICATE",
+    "text": "Hatalı sertifika"
+  },
+  {
+    "code": "2149",
+    "errorInformation": "ERROR_QC_STATEMENTS_EXTENSION_DOES_NOT_HAVE_5070_IN_CERTIFICATE",
+    "text": "Hatalı sertifika"
+  },
+  {
+    "code": "2150",
+    "errorInformation": "ERROR_CERTIFICATE_IS_BLACKLISTED",
+    "text": "Sertifikayı karalisteye alınması durumunda oluşmaktadır"
+  },
+  {
+    "code": "2151",
+    "errorInformation": "ERROR_CERTIFICATE_SIGNATURE_INVALID",
+    "text": "Sertifika üzerindeki imza geçersiz"
+  },
+  {
+    "code": "2152",
+    "errorInformation": "ERROR_CERTIFICATE_CANNOT_BE_DOWNLOADED",
+    "text": "Sertifikanın truststore'da yoksa download linkinden indirilemediği durumlarda alınır."
+  },
+  {
+    "code": "2181",
+    "errorInformation": "ERROR_NO_CERTIFICATE_IN_OCSP_RESPONSE",
+    "text": "OCSP cevabı içerisinde bir sertifika yok"
+  },
+  {
+    "code": "2182",
+    "errorInformation": "ERROR_OCSP_CERTIFICATE_NOT_TRUSTED",
+    "text": "OCSP sertifikası güvenilir sertifika listesinde değil"
+  },
+  {
+    "code": "2183",
+    "errorInformation": "ERROR_OCSP_CERTIFICATE_SIGNATURE_INVALID",
+    "text": "OCSP sertifikasının imzası geçersiz"
+  },
+  {
+    "code": "2184",
+    "errorInformation": "ERROR_OCSP_CERTIFICATE_EXPIRED_BEFORE_SIGNING_TIME",
+    "text": "OCSP cevabının süresi, imza süresinden önce dolmuş. (Verify)"
+  },
+  {
+    "code": "2185",
+    "errorInformation": "ERROR_OCSP_PRODUCED_TIME_BEFORE_SIGNING_TIME",
+    "text": "OCSP cevabının içerisinde zaman bilgisi vardır. İmza zamanından önce ise bu hata alınıyor. (hem imza hem doğrulama) (önce kendi bilgisayarlarının zamanlarını kontrol etmeleri gerekir"
+  },
+  {
+    "code": "2186",
+    "errorInformation": "ERROR_OCSP_CERTIFICATE_REVOKED_IN_CRL",
+    "text": "OCSP'nin imzalanması için kullanılan sertifika Crl aracılığı ile doğrulanamıyor (Geçersiz ocsp cevabı)"
+  },
+  {
+    "code": "2187",
+    "errorInformation": "ERROR_OCSP_SIGNATURE_INVALID",
+    "text": "OCSP imzası geçersiz"
+  },
+  {
+    "code": "2188",
+    "errorInformation": "ERROR_OCSP_CERTIFICATE_ID_DOES_NOT_MATCH_SERIAL_NUMBER",
+    "text": "Farklı bir sertifikanın ocsp cevabı ile işlem yapılması durumunda oluşur."
+  },
+  {
+    "code": "2201",
+    "errorInformation": "ERROR_CANNOT_ADD_LTV_TO_PADES",
+    "text": "Zaman damgası hatası veya pdf hatası ise,"
+  },
+  {
+    "code": "2202",
+    "errorInformation": "ERROR_CANNOT_FINALIZE_PADES_GENERATION",
+    "text": "Pades finalize'da bir parametre hatalı ise bu alınır"
+  },
+  {
+    "code": "2203",
+    "errorInformation": "ERROR_CANNOT_GENERATE_TEMP_PDF",
+    "text": "Api hatası"
+  },
+  {
+    "code": "2204",
+    "errorInformation": "ERROR_CANNOT_PARSE_PDF_OBJECT",
+    "text": "Pdf dosyası işlenemiyor."
+  },
+  {
+    "code": "2227",
+    "errorInformation": "ERROR_WRONG_PIN_CODE",
+    "text": "Hatalı pin girilerek imza atılmak istenirse"
+  },
+  {
+    "code": "2228",
+    "errorInformation": "ERROR_ARKSIGNER_CLIENT_NOT_INSTALLED",
+    "text": "ArkSigner Client uygulaması kurulu değil"
+  },
+  {
+    "code": "2301",
+    "errorInformation": "ERROR_ARKSIGNER_UNSUPPORTED_COMPRESSION_ALGORITHM",
+    "text": "Desteklenmeyen sıkıştırma algoritması ???"
+  },
+  {
+    "code": "2144",
+    "errorInformation": "ERROR_NO_DIGITAL_SIGNATURE_KEY_USAGE_ATTRIBUTE_IN_CERTIFICATE",
+    "text": "Sertifika hatası"
+  },
+  {
+    "code": "2143",
+    "errorInformation": "ERROR_CERTIFICATE_IS_NOT_X509_V3",
+    "text": "Sertifika X509 v3 değilse bu hata alınır"
+  },
+  {
+    "code": "2142",
+    "errorInformation": "ERROR_NO_KEY_USAGE_ATTRIBUTE_IN_CERTIFICATE",
+    "text": "Sertifikada hata var."
+  },
+  {
+    "code": "2141",
+    "errorInformation": "ERROR_NO_OCSP_ADDRESS_IN_CERTIFICATE",
+    "text": "Sertifika içerisinde ocsp adresi yoksa bu hata alınmaktadır."
+  },
+  {
+    "code": "2094",
+    "errorInformation": "ERROR_TIMESTAMP_CERTIFICATE_NOT_TRUSTED",
+    "text": "zaman damgası sertifikası güvenilir değil"
+  },
+  {
+    "code": "2095",
+    "errorInformation": "ERROR_TIMESTAMP_CERTIFICATE_PATH_VALIDATION",
+    "text": "zaman damgası path'i doğru değil"
+  },
+  {
+    "code": "2096",
+    "errorInformation": "ERROR_TIMESTAMP_CERTIFICATE_EXPIRED",
+    "text": "zaman damgası sertifikası expired olmuş"
+  },
+  {
+    "code": "2097",
+    "errorInformation": "ERROR_TIMESTAMP_CERTIFICATE_REVOKED_IN_CRL",
+    "text": "Zaman damgası sertifikası iptal edilmiş"
+  },
+  {
+    "code": "2098",
+    "errorInformation": "ERROR_TIMESTAMP_SIGNATURE_INVALID",
+    "text": "zaman damgası imzası geçersiz"
+  },
+  {
+    "code": "2101",
+    "errorInformation": "ERROR_LICENSE_NOT_CHECKED",
+    "text": "Arksigner lisansı kontrol edilmedi"
+  },
+  {
+    "code": "2102",
+    "errorInformation": "ERROR_LICENSE_DURATION_EXPIRED",
+    "text": "ArkSigner lisansının süresi dolmuş"
+  },
+  {
+    "code": "2103",
+    "errorInformation": "ERROR_UNLICENSED_MODULE",
+    "text": "Lisans bilgisi verilmeden api kullanılmak istenirse alınır"
+  },
+  {
+    "code": "2104",
+    "errorInformation": "ERROR_NUMBER_OF_ALLOWED_USERS_EXPIRED",
+    "text": "İzin verilen kullanıcı limiti aşılmış."
+  },
+  {
+    "code": "2105",
+    "errorInformation": "ERROR_LICENSE_INVALID",
+    "text": "lisans geçersiz"
+  },
+  {
+    "code": "2092",
+    "errorInformation": "ERROR_TIMESTAMP_STATUS_INVALID",
+    "text": "zaman damgası durumu geçersiz"
+  },
+  {
+    "code": "2111",
+    "errorInformation": "ERROR_SERVER_TIME_NOT_SYNCHRONIZED",
+    "text": "saat ve tarih bilgileri sunucu ile eşlenik değil"
+  },
+  {
+    "code": "2122",
+    "errorInformation": "ERROR_UNKNOWN_MOBILE_CLIENT",
+    "text": "Bilinmeyen mobil istemci"
+  },
+  {
+    "code": "2123",
+    "errorInformation": "ERROR_USER_CANCELLED_MOBILE_SIGNATURE_REQUEST",
+    "text": "kullanıcı mobil imza isteğini reddetti"
+  },
+  {
+    "code": "2124",
+    "errorInformation": "ERROR_CANNOT_ACCESS_TO_MSSP_GATEWAY",
+    "text": "Mobil imza gateway'ine ulaşılamadığı durumda alınıyor"
+  },
+  {
+    "code": "2125",
+    "errorInformation": "ERROR_CANNOT_SIGN_ON_MSSP",
+    "text": "Mobil imza gateway'i üzerinde imza atılamıyor"
+  },
+  {
+    "code": "2126",
+    "errorInformation": "ERROR_INVALID_CELL_PHONE_NUMBER",
+    "text": "Mobil imza için telefon numarası geçersiz"
+  },
+  {
+    "code": "2127",
+    "errorInformation": "ERROR_INVALID_OPERATOR_EXCEPTION",
+    "text": "Mobil imza operatörü geçersiz (Tcell, Vodafone, Turk Telekom)"
+  },
+  {
+    "code": "2128",
+    "errorInformation": "ERROR_CANNOT_GET_MOBILE_USER_PROFILE",
+    "text": "Mobil imza için gerekli sertifika bilgisi alınamadığında alınıyor"
+  },
+  {
+    "code": "2129",
+    "errorInformation": "ERROR_MOBILE_DATA_TO_BE_DISPLAYED_CANNOT_BE_EMPTY",
+    "text": "Görüntülenecek mobil veri boş olamaz"
+  },
+  {
+    "code": "2130",
+    "errorInformation": "ERROR_INVALID_MOBILE_MESSAGE_DIGEST_TO_BE_SIGNED",
+    "text": "Mobil imza için gönderilen digest geçersiz"
+  },
+  {
+    "code": "2131",
+    "errorInformation": "ERROR_CANNOT_SEND_REQUEST_TO_MSSP",
+    "text": "MSSP sunucusuna request atılamıyor"
+  },
+  {
+    "code": "2132",
+    "errorInformation": "ERROR_CANNOT_RETRIEVE_RESPONSE_FROM_ARKSIGNER_MOBILE_GATEWAY",
+    "text": "Mobile Gateway'den response alınamıyor."
+  },
+  {
+    "code": "2121",
+    "errorInformation": "ERROR_CANNOT_ACCESS_TO_MSSP",
+    "text": "Mssp sunucusuna erişilemiyor"
+  },
+  {
+    "code": "",
+    "errorInformation": "ERROR_SIGNATURE_CANNOT_BE_VERIFIED_MATHEMATICALLY",
+    "text": "İmza doğrulanamıyor"
+  },
+  {
+    "code": "2016",
+    "errorInformation": "ERROR_SIGNING_DEVICE_IS_NOT_CONFIGURED",
+    "text": "SmartCardDevice konfigürasyonu hatalı"
+  },
+  {
+    "code": "2015",
+    "errorInformation": "ERROR_CANNOT_LOGOUT_FROM_SIGNING_DEVICE",
+    "text": "SmartCardDevice login olunmadan logout olunmaya çalışıldığı zaman alınır"
+  },
+  {
+    "code": "2001",
+    "errorInformation": "ERROR_CONTENT_CANNOT_BE_NULL",
+    "text": "imzalanacak veri null gönderildiğinde alınır"
+  },
+  {
+    "code": "2003",
+    "errorInformation": "ERROR_CANNOT_LOAD_LICENSE",
+    "text": "lisans yüklenemediği zaman hata alınır."
+  },
+  {
+    "code": "2005",
+    "errorInformation": "ERROR_CANNOT_SET_SIGNING_TIME",
+    "text": "imza zamanı set edilemiyor"
+  },
+  {
+    "code": "2007",
+    "errorInformation": "ERROR_CANNOT_START_SESSION_ON_PROVIDED_SLOT",
+    "text": "SmartCardDevice üzerindeki akıllı kart'ta oturum başlatılamadığı durumda oluşur"
+  },
+  {
+    "code": "2008",
+    "errorInformation": "ERROR_CANNOT_LOGIN_TO_SIGNING_DEVICE",
+    "text": "SmartCardDevice'a login olunamıyor"
+  },
+  {
+    "code": "2009",
+    "errorInformation": "ERROR_NO_CERTIFICATE_FOUND_ON_SIGNING_DEVICE_SLOT",
+    "text": "Sertifika bulunamıyor"
+  },
+  {
+    "code": "2010",
+    "errorInformation": "ERROR_MULTIPLE_CERTIFICATES_FOUND_ON_SIGER_DEVICE_SLOT",
+    "text": "SmartCardDevice üzerinde Birden çok sertifika bulunmaktadır."
+  },
+  {
+    "code": "2011",
+    "errorInformation": "ERROR_CERTIFICATE_FORMAT_NOT_SUPPORTED",
+    "text": "Sertifika hatalı"
+  },
+  {
+    "code": "2012",
+    "errorInformation": "ERROR_CERTIFICATE_DOES_NOT_SUPPORT_SIGNING_ALGORITHM",
+    "text": "Sertifika imzalama algoritmasını desteklemiyor"
+  },
+  {
+    "code": "2013",
+    "errorInformation": "ERROR_CONTENT_CANNOT_BE_SIGNED_AS_CMS",
+    "text": "CAdES imza atılmak istenen içerik hatalı"
+  },
+  {
+    "code": "2014",
+    "errorInformation": "ERROR_CANNOT_SIGN_CONTENT",
+    "text": "içerik imzalanamıyor"
+  }
+]
