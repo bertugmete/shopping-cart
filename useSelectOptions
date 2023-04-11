@@ -1,0 +1,45 @@
+import {useEffect, useState} from 'react'
+import {dataToOptions} from '@utils/SelectUtils'
+import {optionsType} from '@types'
+import {LanguageEnum} from '@enums'
+import restClient from '@services/RestClient'
+
+function useSelectOptions({
+  url,
+  label,
+  value,
+  hasI18N
+}: {
+  url: string
+  label?: string
+  value?: string
+  hasI18N?: boolean
+}) {
+  const [options, setOptions] = useState<optionsType[]>([])
+
+  useEffect(() => {
+    restClient.get(url).then(response => {
+      if (hasI18N) {
+        const {data} = response
+        const options = data.map(item => {
+          const content = item.i18N.i18NContentList.find(
+            i18NContent => i18NContent.language === LanguageEnum.TR
+          )?.content ||'-'
+
+          return {
+            label: content,
+            value: item.id
+          }
+        })
+        setOptions(options)
+      } else {
+        const {data} = response
+        setOptions(dataToOptions(data, label, value))
+      }
+    })
+  }, [url])
+
+  return options
+}
+
+export default useSelectOptions
