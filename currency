@@ -1,0 +1,51 @@
+import React from 'react'
+import { InputHOC } from '@protoweb/utils'
+import { ICurrencyPropType } from '@protocommon/types'
+import classNames from 'classnames'
+import './assets/styles/style.scss'
+import CurrencyInput from "react-currency-input-field";
+
+class Currency extends React.Component<ICurrencyPropType> {
+  static displayName: string = 'currency'
+  static defaultProps = {
+    autoFocus: false,
+    groupSeparator: '.',
+    decimalSeparator: ','
+  }
+  currencyValue = (value, name, item) => {
+    if (this.props.onChange) this.props.onChange(null, item)
+  }
+
+  render() {
+    const {
+      placeholder,
+      className,
+      groupSeparator,
+      decimalSeparator,
+      style,
+      disabled,
+      readOnly
+    } = this.props
+    return (
+      <div
+        className={classNames(className, 'proto-currency__container')}
+        style={style?.container as React.CSSProperties}
+      >
+        <CurrencyInput
+          id="currency"
+          placeholder={placeholder}
+          className={classNames('proto-currency__element', {
+            'proto-currency__element--disabled': disabled,
+            'proto-currency__element--readonly': readOnly
+          })}
+          groupSeparator={groupSeparator}
+          decimalSeparator={decimalSeparator}
+          onValueChange={this.currencyValue}
+          value={this.props.value?.value || ''}
+        />
+      </div>
+    )
+  }
+}
+
+export default InputHOC(Currency)
