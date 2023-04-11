@@ -1,0 +1,52 @@
+import {State} from '@protolibrary/core'
+
+interface ILoaderState {
+  // todo Stateler icin base interface olustur !!
+  name: 'loaderState'
+  initial: ILoaderState
+  open: () => void
+  close: () => void
+  increaseCallCount: () => void
+  decreaseCallCount: () => void
+  getState: () => ILoaderStateData
+}
+
+export interface ILoaderStateData {
+  open: boolean
+  callCount: number
+}
+
+const loaderState: ILoaderState = State({
+  name: 'loaderState',
+  initial: {
+    open: false,
+    callCount: 0
+  },
+  open: function () {
+    return {
+      ...this.state,
+      open: true
+    }
+  },
+  close: function () {
+    return {
+      ...this.state,
+      open: false
+    }
+  },
+  increaseCallCount: function () {
+    return {
+      ...this.state,
+      callCount: ++this.state.callCount
+    }
+  },
+  decreaseCallCount: function () {
+    if (this.state.callCount > 0)
+      return {
+        ...this.state,
+        callCount: --this.state.callCount
+      }
+  }
+})
+
+export default loaderState
