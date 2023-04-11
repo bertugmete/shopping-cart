@@ -1,0 +1,49 @@
+import axios from 'axios'
+import BaseResponse from '@services/BaseResponse'
+
+const config = {}
+
+class RestClient {
+  public post<T, R>(
+    controllerName: string,
+    data?: T
+  ): Promise<BaseResponse<R>> {
+    return new Promise((resolve, reject) => {
+      return axios
+        .post(controllerName, data, config)
+        .then(response => resolve(response.data))
+        .catch(error => reject(error))
+    })
+  }
+
+  public delete<T>(controllerName: string, data?: T): Promise<BaseResponse<T>> {
+    return new Promise((resolve, reject) => {
+      return axios
+        .delete(controllerName, data)
+        .then(response => resolve(response.data))
+        .catch(error => reject(error))
+    })
+  }
+
+  public put<T>(controllerName: string, data?: T): Promise<BaseResponse<T>> {
+    return new Promise((resolve, reject) => {
+      return axios
+        .put(controllerName, data)
+        .then(response => resolve(response.data))
+        .catch(error => reject(error))
+    })
+  }
+
+  public get<T>(controllerName: string, data?: T): Promise<BaseResponse<T>> {
+    return new Promise((resolve, reject) => {
+      return axios
+        .get(controllerName, data)
+        .then(response => resolve(response.data))
+        .catch(error => reject(error))
+    })
+  }
+}
+
+const restClient = new RestClient()
+
+export default restClient
