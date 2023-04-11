@@ -1,0 +1,261 @@
+import Modal from '@protoweb/modal'
+import React from 'react'
+import {Block, Button, Col, Image, Row} from '@protolibrary/components'
+import {modalState} from '../core/states'
+import Element from '@protoweb/element'
+import useWindowSize from '@hooks/useWindowSize'
+import {useStore} from '@core/states'
+import {ModalTypeEnum} from '@common/models/Modal'
+import SuccessTickImage from './assets/images/tick.png'
+import ErrorImage from './assets/images/error.png'
+import ConfirmationImage from './assets/images/confirmation.png'
+import MkkButton from '../buttons'
+
+const defaultProps = {
+  type: ModalTypeEnum.CONFIRMATION
+}
+
+let modalMap = new Map<
+  string,
+  () => {
+    size: size
+    title?: string
+    body: React.FC
+    footer: (
+      close: () => void,
+      confirmAction?: () => void
+    ) => React.ReactElement
+    style: object
+  }
+>([
+  [
+    ModalTypeEnum.VALIDATION,
+    () => {
+      return {
+        size: 'small',
+        body: modalStore => ValidationModalBody({modalStore}),
+        footer: close => (
+          <Row>
+            <Col xs={12} md={2} lg={2} xl={2}>
+              <Button
+                type="button"
+                className="button-error"
+                onClick={() => {
+                  close && close()
+                  modalState.close()
+                }}>
+                Tamam
+              </Button>
+            </Col>
+          </Row>
+        ),
+        style: {
+          color: '#db3961'
+        }
+      }
+    }
+  ],
+  [
+    ModalTypeEnum.ERROR,
+    () => {
+      return {
+        size: 'small',
+        body: modalStore => ErrorModalBody({modalStore}),
+        footer: close => (
+          <Block>
+            <Button
+              type="button"
+              className="button-error"
+              onClick={() => {
+                close && close()
+                modalState.close()
+              }}>
+              Tamam
+            </Button>
+          </Block>
+        ),
+        style: {
+          color: '#e21b1b'
+        }
+      }
+    }
+  ],
+  [
+    ModalTypeEnum.SUCCESS,
+    () => {
+      return {
+        size: 'small',
+        body: modalStore => SuccessModalBody({modalStore}),
+        footer: close => (
+          <Block>
+            <Button
+              type="button"
+              className="button-success"
+              onClick={() => {
+                close && close()
+                modalState.close()
+              }}>
+              Tamam
+            </Button>
+          </Block>
+        ),
+        style: {
+          color: '#43c4a1'
+        }
+      }
+    }
+  ],
+  [
+    ModalTypeEnum.CONFIRMATION,
+    () => {
+      return {
+        size: 'small',
+        body: modalStore => (
+          <Block>
+            <Image path={ConfirmationImage} alt="Info" />
+            <Element className="proto-modal__body__title" type="p">
+              {modalStore.confirmationTitle || 'Bilgilendirme'}
+            </Element>
+            <Element type="p" className="proto-modal__body__description">
+              {modalStore.confirmationMessage ||
+                'İşlemi gerçekleştirmek istiyor musunuz ?'}
+            </Element>
+          </Block>
+        ),
+        footer: (close, confirmAction) => (
+          <Row style={{width: '100%'}}>
+            <Col xs={12} md={6} lg={6} xl={6}>
+              <MkkButton.Secondary
+                type="button"
+                onClick={() => {
+                  close && close()
+                  modalState.close()
+                }}>
+                Vazgeç
+              </MkkButton.Secondary>
+            </Col>
+            <Col xs={12} md={6} lg={6} xl={6}>
+              <MkkButton.Primary
+                type="button"
+                onClick={() => {
+                  confirmAction && confirmAction()
+                  modalState.close()
+                }}>
+                Devam Et
+              </MkkButton.Primary>
+            </Col>
+          </Row>
+        ),
+        style: {
+          color: '#000000'
+        }
+      }
+    }
+  ]
+])
+
+export type size = 'medium' | 'large' | 'small'
+export type DmsModalType =
+  | ModalTypeEnum.VALIDATION
+  | ModalTypeEnum.ERROR
+  | ModalTypeEnum.SUCCESS
+  | ModalTypeEnum.CONFIRMATION
+
+function DmsModal({
+  type,
+  show,
+  close,
+  confirmAction
+}: {
+  type: DmsModalType
+  show: boolean
+  close: () => void
+  confirmAction?: () => void
+}) {
+  const {windowSize, SizeEnum} = useWindowSize()
+  const modalStore = useStore('modalState')
+  const storeSize = modalStore.size
+  let {title, body, footer, size, style} = modalMap.get(type)()
+  size =
+    windowSize === SizeEnum.xs
+      ? 'large'
+      : windowSize === SizeEnum.md
+      ? 'large'
+      : size
+  return (
+    <Modal
+      size={storeSize || size}
+      show={show}
+      style={{container: style}}
+      className="mkk-modal">
+      <Modal.Header>{title}</Modal.Header>
+      <Modal.Body style={style}>
+        {typeof body === 'function' ? body(modalStore) : body}
+      </Modal.Body>
+      <Modal.Footer style={style}>{footer(close, confirmAction)}</Modal.Footer>
+    </Modal>
+  )
+}
+
+DmsModal.defaultProps = defaultProps
+
+function ValidationModalBody({modalStore}) {
+  return (
+    <Block>
+      <Image path={ErrorImage} alt="Error" />
+      <Element className="proto-modal__body__title" type="p">
+        Hata
+      </Element>
+      <Element
+        style={{
+          element: {display: 'flex', flexDirection: 'column', textAlign: 'left'}
+        }}
+        type="ul">
+        {modalStore?.validations?.map(validation => (
+          <Element
+            type="li"
+            style={{element: {justifyContent: 'center'}}}
+            key={validation.code}>
+            <Element
+              type="span"
+              style={{element: {fontSize: '16px'}}}
+              className="proto-modal__body__description">
+              {validation.message}
+            </Element>
+          </Element>
+        ))}
+      </Element>
+    </Block>
+  )
+}
+
+function ErrorModalBody({modalStore}) {
+  return (
+    <Block>
+      <Image path={ErrorImage} alt="Error" />
+      <Element className="proto-modal__body__title" type="p">
+        {modalStore.title || 'Hata'}
+      </Element>
+      <Element type="p" className="proto-modal__body__description">
+        {modalStore?.errorMessage}
+      </Element>
+    </Block>
+  )
+}
+
+function SuccessModalBody({modalStore}) {
+  return (
+    <Block>
+      <Image path={SuccessTickImage} alt="Success" />
+      <Element className="proto-modal__body__title" type="p">
+        {modalStore.title || 'Başarılı'}
+      </Element>
+      <Element type="p" className="proto-modal__body__description">
+        {modalStore?.successMessage || 'İşlemi başarıyla gerçekleştirdiniz.'}
+      </Element>
+    </Block>
+  )
+}
+
+export {ValidationModalBody}
+export default DmsModal
