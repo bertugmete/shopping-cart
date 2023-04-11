@@ -1,0 +1,7 @@
+export enum ModalTypeEnum {
+  VALIDATION = 'validation',
+  ERROR = 'error',
+  SUCCESS = 'success',
+  CONFIRMATION = 'confirmation',
+  FORM = 'form'
+}
