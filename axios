@@ -1,0 +1,153 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable no-param-reassign */
+import axios, {AxiosError, AxiosRequestConfig, AxiosResponse} from 'axios'
+import applicationProperties from '@resources/properties/ApplicationProperties'
+import {loginState, modalState} from '../../states'
+import React from 'react'
+import loaderState from '../../states/LoaderState'
+import {ModalTypeEnum} from '@common/models/Modal'
+import loginService from '@services/LoginService'
+import companyStateManager from '@core/states/manager/CompanyStoreManager'
+import {routeActions} from '@protolibrary/core'
+import {getCommonLogItems, resetAllStores} from '@utils/ApplicationUtils'
+import companyState from '@core/states/CompanyState'
+
+const httpAuthorizationErrorCode = 401
+const httpForbiddenErrorCode = 403
+
+const commonLogUrlList = [
+  '/api/authorized-persons/companies',
+  '/api/roles',
+  '/api/roles/delete/',
+  '/api/dys/findDocumentRevisionWithMetadata',
+  '/api/dys/download',
+  '/api/dys/deleteDocumentByRevisionId',
+  '/api/companies/delete-logo',
+  '/api/transaction-log/pageable-list',
+  '/api/authorized-persons/report',
+  '/api/authorized-persons/admin-report'
+]
+
+const setupAxiosInterceptors = () => {
+  const onRequestSuccess = async (config: AxiosRequestConfig) => {
+    if (config.method === 'post') {
+      if (commonLogUrlList.includes(config.url)) {
+        config.data = {
+          ...config.data,
+          ...getCommonLogItems(),
+          companyOid:
+            companyState.getState().objId || config.data.companyObjId || null
+        }
+      }
+    }
+    config.headers['Company'] = companyStateManager.getCompanyObjId()
+    if (!config.headers?.noLoader) {
+      loaderState.increaseCallCount()
+    }
+
+    if (config.headers['Authorization'] === undefined) {
+      config.headers.Authorization = `Bearer ${
+        loginState.getState().accessToken
+      }`
+    }
+    if (config.headers) {
+      if (config.headers['Content-Type'] === undefined) {
+        config.headers['Content-Type'] = 'application/json'
+      }
+    } else {
+      config.headers = {'Content-Type': 'application/json'}
+    }
+    config.timeout = applicationProperties.api.timeout
+
+    if (!loaderState.getState().open && !config.headers?.noLoader) {
+      document.body.style.overflow = 'hidden'
+      loaderState.open()
+    }
+    delete config.headers?.noLoader
+    return config
+  }
+
+  const onResponseSuccess = (response: AxiosResponse) => {
+    loaderState.decreaseCallCount()
+
+    if (loaderState.getState().callCount < 1 && loaderState.getState().open) {
+      loaderState.close()
+      document.body.style.overflow = 'scroll'
+    }
+    return response
+  }
+
+  const onResponseError = async (error: AxiosError) => {
+    loaderState.decreaseCallCount()
+
+    if (loaderState.getState().callCount < 1 && loaderState.getState().open) {
+      loaderState.close()
+      document.body.style.overflow = 'scroll'
+    }
+    if (error?.response?.status === 400) {
+      if (loginState.getState().authenticated) {
+        if (error?.response?.data?.validations?.length) {
+          modalState.open({
+            type: ModalTypeEnum.VALIDATION,
+            validations: error.response.data.validations
+          })
+        } else if (error?.response?.data?.error?.detailedMessage) {
+          modalState.open({
+            type: ModalTypeEnum.ERROR,
+            errorMessage: error?.response?.data?.error?.detailedMessage
+          })
+        }
+      } else {
+        if (error?.response?.data?.validations?.length) {
+          modalState.open({
+            type: ModalTypeEnum.VALIDATION,
+            validations: error.response.data.validations
+          })
+        } else {
+          modalState.open({
+            type: ModalTypeEnum.ERROR,
+            errorMessage:
+              error?.response?.data?.error?.detailedMessage ||
+              error?.response?.data?.error?.message
+          })
+        }
+      }
+    } else if (error?.response?.status === httpAuthorizationErrorCode) {
+      try {
+        const response = await loginService.getAccessToken({
+          refreshToken: loginState.getState().refreshToken
+        })
+
+        error.config.headers.Authorization = `Bearer ${response?.data}`
+        loginState.setAuthenticate({
+          accessToken: response?.data,
+          refreshToken: loginState.getState().refreshToken
+        })
+      } catch {
+        resetAllStores()
+        routeActions.pushState()
+        routeActions.push('/')
+        modalState.close()
+        return
+      }
+
+      return axios.request(error.config)
+    } else if (error?.response?.status === httpForbiddenErrorCode) {
+      modalState.open({
+        type: ModalTypeEnum.ERROR,
+        errorMessage: 'Bu işlem için yetkiniz bulunmamaktadır.'
+      })
+    } else {
+      modalState.open({
+        type: ModalTypeEnum.ERROR,
+        errorMessage: 'Bir hata oluştu, lütfen tekrar deneyiniz'
+      })
+    }
+    return Promise.reject(error.response && error.response.data)
+  }
+
+  axios.interceptors.request.use(onRequestSuccess)
+  axios.interceptors.response.use(onResponseSuccess, onResponseError)
+}
+
+export default setupAxiosInterceptors
