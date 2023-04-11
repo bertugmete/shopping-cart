@@ -1,0 +1,22 @@
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/**")
+                .addResourceLocations("classpath:/static/")
+                .resourceChain(true)
+                .addResolver(new PathResourceResolver() {
+                    @Override
+                    protected Resource getResource(String resourcePath, Resource location) throws IOException {
+                        Resource requestedResource = location.createRelative(resourcePath);
+                        if (requestedResource.exists() && requestedResource.isReadable()) {
+                            return requestedResource;
+                        } else {
+                            Resource indexHtml = location.createRelative("index.html");
+                            if (indexHtml.exists() && indexHtml.isReadable()) {
+                                return indexHtml;
+                            } else {
+                                return super.getResource(resourcePath, location);
+                            }
+                        }
+                    }
+                });
+    }
