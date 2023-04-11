@@ -1,0 +1,42 @@
+class BaseResponse<T> {
+  public data: T
+  public success: boolean
+  public error: ExceptionInfo
+
+  BaseResponse(data: T) {
+    this.data = data
+  }
+
+  BaseResponse(data: T, success: boolean) {
+    this.data = data
+    this.success = success
+  }
+
+  BaseResponse(success: boolean, error: ExceptionInfo) {
+    this.success = success
+    this.error = error
+  }
+
+  BaseResponse(success: boolean, error: ExceptionInfo, data: T) {
+    this.success = success
+    this.error = error
+    this.data = data
+  }
+}
+
+export default BaseResponse
+
+export type ExceptionInfo = {
+  error: {
+    errorCode: string
+    message: string
+    messageType: string
+    detailedMessage: string
+    type: string
+  }
+}
+
+type BaseType = {
+  data: object | []
+  success: boolean
+}
