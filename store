@@ -1,0 +1,69 @@
+import modalState, {IModalStateData} from './ModalState'
+import loaderState, {ILoaderStateData} from './LoaderState'
+import loginState, {ILoginStateData} from './LoginState'
+import customModalState, {ICustomModalStateData} from './CustomModalState'
+import hamburgerMenuState, {IHamburgerMenuStateData} from './HamburgerMenuState'
+import userState, {IUserStateData} from './UserState'
+import {useSelector} from 'react-redux'
+import {ICompanyState} from '@core/states/CompanyState'
+import optionsState, {IOptionsStateData} from '@core/states/OptionsState'
+import {ILocationState} from '@core/states/LocationState'
+import {IDigitalSignData} from '@core/states/DigitalSignState'
+import applicationState, {
+  IApplicationStateData
+} from '@core/states/ApplicationState'
+
+type IStoreName =
+  | 'loginState'
+  | 'modalState'
+  | 'userState'
+  | 'loaderState'
+  | 'hamburgerMenuState'
+  | 'customModalState'
+  | 'companyState'
+  | 'optionsState'
+  | 'locationState'
+  | 'digitalSignState'
+  | 'applicationState'
+
+export type StoreObject<IStoreName> = IStoreName extends 'digitalSignState'
+  ? IDigitalSignData
+  : IStoreName extends 'locationState'
+  ? ILocationState
+  : IStoreName extends 'userState'
+  ? IUserStateData
+  : IStoreName extends 'companyState'
+  ? ICompanyState
+  : IStoreName extends 'customModalState'
+  ? ICustomModalStateData
+  : IStoreName extends 'loginState'
+  ? ILoginStateData
+  : IStoreName extends 'modalState'
+  ? IModalStateData
+  : IStoreName extends 'loaderState'
+  ? ILoaderStateData
+  : IStoreName extends 'hamburgerMenuState'
+  ? IHamburgerMenuStateData
+  : IStoreName extends 'optionsState'
+  ? IOptionsStateData
+  : IStoreName extends 'applicationState'
+  ? IApplicationStateData
+  : never
+
+function useStore<T extends IStoreName>(storeName: T): StoreObject<T> {
+  return useSelector<any, StoreObject<T>>(selector => {
+    return selector[storeName]
+  })
+}
+
+export {
+  modalState,
+  loaderState,
+  loginState,
+  hamburgerMenuState,
+  useStore,
+  customModalState,
+  optionsState,
+  userState,
+  applicationState
+}
