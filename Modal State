@@ -1,0 +1,140 @@
+import {State} from '@protolibrary/core'
+import React from 'react'
+import {DmsModalType, size} from '@components/DmsModal'
+import {ButtonTypeEnum, ModalTypeEnum} from '@common/models/Modal'
+
+interface IButtons {
+  onClick: () => void
+  type: ButtonTypeEnum
+  text: string
+}
+
+interface IModalState {
+  name: 'modalState'
+  initial: IModalStateData
+  open: (data: {
+    type?: string
+    closeAction?: () => void
+    validations?: []
+    errorMessage?: string
+    confirmAction?: () => void
+    title?: string
+    successMessage?: string
+    confirmationMessage?: string
+    confirmationTitle?: string
+    size?: string
+  }) => void
+  close: () => void
+  openExtendedModal: (data: {
+    type: string
+    buttons: Array<IButtons>
+    title: React.FC | string
+    body: React.FC | React.ReactElement | string
+    buttonsRight: boolean
+    closeable?: boolean
+  }) => void
+}
+
+export interface IModalStateData {
+  open: boolean
+  header: React.FC | string
+  body: React.FC | string
+  footer: React.FC | string
+  size: size
+  type: DmsModalType
+  closable: boolean
+  closeAction: () => void
+  confirmAction: () => void
+  validations: []
+  title: React.FC | string
+  buttons: Array<IButtons>
+  custom: boolean
+  buttonsRight: boolean
+  confirmationMessage: string
+  confirmationTitle: string
+}
+
+const modalState: IModalState = State({
+  name: 'modalState',
+  initial: {
+    open: false,
+    header: '',
+    body: '',
+    footer: '',
+    size: null,
+    type: ModalTypeEnum.SUCCESS,
+    closable: false,
+    closeAction: () => {},
+    validations: [],
+    title: '',
+    buttons: [],
+    custom: false,
+    buttonsRight: false,
+    confirmAction: () => {},
+    confirmationMessage: '',
+    confirmationTitle: ''
+  },
+  open: ({
+    type = ModalTypeEnum.SUCCESS,
+    closeAction,
+    validations,
+    errorMessage,
+    confirmAction,
+    title,
+    successMessage,
+    confirmationMessage,
+    confirmationTitle,
+    size
+  }) => {
+    document.body.style.overflow = 'auto'
+    document.body.style.position = 'fixed'
+    return {
+      open: true,
+      type,
+      closeAction,
+      validations,
+      errorMessage,
+      confirmAction,
+      title,
+      successMessage,
+      confirmationMessage: confirmationMessage || '',
+      confirmationTitle: confirmationTitle || '',
+      size
+    }
+  },
+  close: () => {
+    document.body.style.overflow = 'auto'
+    document.body.style.position = 'relative'
+    return {
+      open: false,
+      header: '',
+      body: '',
+      footer: '',
+      custom: false,
+      buttons: [],
+      buttonsRight: false,
+      size: null
+    }
+  },
+  openExtendedModal: ({
+    type = ModalTypeEnum.SUCCESS,
+    buttons,
+    title,
+    body,
+    buttonsRight,
+    closeable
+  }) => {
+    return {
+      open: true,
+      custom: true,
+      type,
+      buttons,
+      title,
+      body,
+      buttonsRight,
+      closeable
+    }
+  }
+})
+
+export default modalState
