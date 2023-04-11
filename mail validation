@@ -1,3 +1,8 @@
+import React from 'react'
+import {required} from '@protolibrary/utils'
+import TextField from '@protoweb/textfield'
+
+class Email extends React.Component {
   handleEmailValidation = value => {
     const re = /\S+@\S+\.\S+/
     const valid = re.test(value)
@@ -5,3 +10,20 @@
       return required('Hatalı email girdiniz')('')
     }
   }
+
+  render() {
+    return (
+      <TextField
+        maxLength={150}
+        validations={[this.handleEmailValidation]}
+        {...this.props}
+      />
+    )
+  }
+}
+
+Email.defaultProps = {
+  name: 'email'
+}
+
+export default Email
