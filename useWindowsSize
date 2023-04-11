@@ -1,0 +1,47 @@
+import {useEffect, useState} from 'react'
+import {SizeEnum} from '@protoweb/types'
+
+const breakpoints = {
+  xl: 1440,
+  lg: 1024,
+  md: 768,
+  xs: 0
+}
+
+function useWindowSize() {
+  const [windowSize, setWindowSize] = useState<SizeEnum>(SizeEnum.lg)
+
+  useEffect(() => {
+    const calculateWindowSize = () => {
+      if (window.innerWidth >= breakpoints[SizeEnum.xl]) {
+        if (windowSize !== SizeEnum.xl) {
+          setWindowSize(SizeEnum.xl)
+        }
+      } else if (window.innerWidth >= breakpoints[SizeEnum.lg]) {
+        if (windowSize !== SizeEnum.lg) {
+          setWindowSize(SizeEnum.lg)
+        }
+      } else if (window.innerWidth >= breakpoints[SizeEnum.md]) {
+        if (windowSize !== SizeEnum.md) {
+          setWindowSize(SizeEnum.md)
+        }
+      } else {
+        if (windowSize !== SizeEnum.xs) {
+          setWindowSize(SizeEnum.xs)
+        }
+      }
+    }
+
+    window.addEventListener('resize', calculateWindowSize)
+
+    calculateWindowSize()
+
+    return () => {
+      document.removeEventListener('resize', calculateWindowSize)
+    }
+  }, [])
+
+  return {windowSize, SizeEnum}
+}
+
+export default useWindowSize
