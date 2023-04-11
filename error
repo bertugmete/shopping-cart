@@ -1,0 +1,1 @@
+Spring boot projesinde /** adresine anlamadığım şekilde istek atılıyor.  spring boot projesi bu hatayı fırlatıyor: SimpleUrlHandlerMapping - Mapped to ResourceHttpRequestHandler [URL [file:/mw/esir-service/www/static/], ServletContext [/]]. Bunu nasıl çözebilirim
