@@ -1,0 +1,7 @@
+  handleEmailValidation = value => {
+    const re = /\S+@\S+\.\S+/
+    const valid = re.test(value)
+    if (!valid) {
+      return required('Hatalı email girdiniz')('')
+    }
+  }
