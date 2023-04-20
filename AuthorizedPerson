@@ -1,0 +1,75 @@
+package tr.com.mkk.esir.entity;
+
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
+import org.hibernate.annotations.WhereJoinTable;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+/**
+ * Entity
+ * @author Bertug Mete
+ */
+@Entity
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Table(name = "AUTHORIZED_PERSON")
+@Where(clause = "RECORD_STATUS = 'A'")
+@SQLDelete(sql = "update AUTHORIZED_PERSON set record_status = 'D' where objId = ?")
+public class AuthorizedPerson extends AuditableEntity implements Serializable {
+    @Column(name = "NAME")
+    private String name;
+
+    @Column(name = "SURNAME")
+    private String surname;
+
+    @Column(name = "PHONE")
+    private String phone;
+
+    @Column(name = "EMAIL")
+    private String email;
+
+    @Column(name = "IDENTITY")
+    private String identity;
+
+    @Column(name = "TCKN")
+    private String tckn;
+
+    @Column(name = "PASAPORT")
+    private String pasaport;
+
+    @Column(name = "USERNAME")
+    private String username;
+
+    @Column(name = "PASSWORD")
+    private String password;
+
+
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinColumn(name = "ROLE_OID", referencedColumnName = "OBJID", nullable = false)
+    private Role role;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {
+            CascadeType.MERGE
+    })
+    @JoinTable(
+            name = "ROLE_AUTHORIZATION",
+            joinColumns = @JoinColumn(name = "ROLE_OBJID", referencedColumnName = "ROLE_OID"),
+            inverseJoinColumns = @JoinColumn(name = "AUTHORIZATION_OBJID", referencedColumnName = "OBJID")
+    )
+    @WhereJoinTable(clause = "RECORD_STATUS = 'A'")
+    private Set<Authorization> authorizations;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "authorizedPerson", cascade = CascadeType.ALL)
+    @Where(clause = "RECORD_STATUS = 'A'")
+    private List<CompanyAuthorizedPerson> companyAuthorizedPeople = new ArrayList<>();
+
+}
