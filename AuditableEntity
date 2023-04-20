@@ -1,0 +1,52 @@
+package tr.com.mkk.esir.entity;
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import tr.com.mkk.esir.enums.RecordStatus;
+
+import javax.persistence.*;
+import java.util.Date;
+/**
+ * Entity
+ * @author Bertug Mete
+ */
+@MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
+@Data
+@EqualsAndHashCode
+public class AuditableEntity implements ESIREntity<String> {
+    @Id
+    @GeneratedValue(generator = "system-uuid")
+    @GenericGenerator(
+            name = "system-uuid",
+            strategy = "uuid.hex"
+    )
+    @Column(name = "OBJID", length = 32, unique = true, nullable = false)
+    private String objId;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "RECORD_STATUS")
+    private RecordStatus recordStatus = RecordStatus.A;
+
+    @CreatedDate
+    @Column(name = "CREATION_DATE", updatable = false)
+    private Date creationDate;
+
+    @LastModifiedDate
+    @Column(name = "LAST_CHANGE_DATE")
+    private Date lastChangeDate;
+
+    @CreatedBy
+    @Column(name = "USER_CREATED", updatable = false)
+    private String userCreated;
+
+    @LastModifiedBy
+    @Column(name = "USER_UPDATED")
+    private String userUpdated;
+}
