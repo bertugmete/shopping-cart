@@ -1,0 +1,20 @@
+    @Modifying
+    @Query(value = "INSERT INTO AUTHORIZED_PERSON (NAME, SURNAME, PHONE, EMAIL, IDENTITY, TCKN, PASAPORT, USERNAME," +
+            " PASSWORD, ROLE_OID, RECORD_STATUS, CREATION_DATE, LAST_CHANGE_DATE, USER_CREATED, USER_UPDATED) " +
+            "VALUES (:name, :surname, :phone, :email, :identity, :tckn, :pasaport, :username, :password, :roleId," +
+            " :recordStatus, :creationDate, :lastChangeDate, :userCreated, :userUpdated)", nativeQuery = true)
+    void insertAuthorizedPerson(@Param("name") String name,
+                                @Param("surname") String surname,
+                                @Param("phone") String phone,
+                                @Param("email") String email,
+                                @Param("identity") String identity,
+                                @Param("tckn") String tckn,
+                                @Param("pasaport") String pasaport,
+                                @Param("username") String username,
+                                @Param("password") String password,
+                                @Param("roleId") String roleId,
+                                @Param("recordStatus") RecordStatus recordStatus,
+                                @Param("creationDate") Date creationDate,
+                                @Param("lastChangeDate") Date lastChangeDate,
+                                @Param("userCreated") String userCreated,
+                                @Param("userUpdated") String userUpdated);
